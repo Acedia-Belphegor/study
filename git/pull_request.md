@@ -1,4 +1,4 @@
-## pull request
+# pull request
 
 リモートリポジトリにpushする（今回の例では `add_files` というブランチ名で）
 ```

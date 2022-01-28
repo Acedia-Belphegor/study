@@ -1,3 +1,5 @@
+# config
+
 ユーザー名の登録
 ```
 $ git config --global user.name "yoshinori.kodama"
