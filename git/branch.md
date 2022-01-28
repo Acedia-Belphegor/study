@@ -28,3 +28,8 @@ $ git branch -r
 $ git checkout -b <ローカルブランチ名> origin/<リモートブランチ名>
 ```
 
+別のユーザーのリモートブランチをローカルにコピーする
+```
+$ git fetch
+$ git checkout -b <ローカルに作成するブランチ名> origin/<リモートブランチ名>
+```
