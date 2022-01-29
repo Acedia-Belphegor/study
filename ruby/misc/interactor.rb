@@ -14,3 +14,7 @@ class HogeInteractor
 end
 
 puts HogeInteractor.call(calc_type: "plus", values: [1, 2, 3]).result
+__END__
+
+https://applis.io/posts/rails-design-pattern-interactor-objects
+https://qiita.com/verdy89/items/00a2992a9a62cacec00e
