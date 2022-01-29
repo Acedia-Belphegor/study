@@ -42,12 +42,22 @@ $ git log
 ```
 => `c28bbdb92f28972f7f8534e5d53b46c9dd41bd57` がコミットid
 ```
-$ git log
 commit c28bbdb92f28972f7f8534e5d53b46c9dd41bd57 (HEAD -> master)
 Author: yoshinori.kodama <yoshinori.kodama@medley.jp>
 Date:   Fri Jan 28 11:33:16 2022 +0900
 
     fix readme
+```
+簡略化して表示したい場合 (直近のコミット5件)
+```
+$ git log --oneline -5
+```
+```
+36ff760 (HEAD -> master, origin/master) fix interactor
+cc32460 add rails_study
+0143931 add ruby
+6434fa2 fix git docs
+b5f6fcf written rebase.md
 ```
 memo
 - コミットidを取得したい場合などに利用する
