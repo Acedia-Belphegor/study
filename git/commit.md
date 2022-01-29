@@ -67,5 +67,22 @@ memo
 ```
 $ git reset --soft HEAD^
 ```
+
+## `git log` を見やすく整形する
+```
+$ vim ~/.gitconfig
+
+[alias]
+    plog = log --pretty='format:%C(yellow)%h %C(green)%cd %C(reset)%s %C(red)%d %C(cyan)[%an]' --date=iso
+```
+```
+$ git plog
+9a2a4da 2022-01-29 15:39:52 +0900 fix  (HEAD -> generate_scaffold_user, origin/master, master) [Yoshinori]
+df5ab0b 2022-01-29 14:00:02 +0900 fix git rebase.md  [Yoshinori]
+c1ed34c 2022-01-29 13:08:23 +0900 fix docs  [Yoshinori]
+f459306 2022-01-29 12:56:26 +0900 fix interactor  [Yoshinori]
+36ff760 2022-01-29 10:26:34 +0900 fix interactor  [yoshinori.kodama]
+```
+
 参考
 - https://qiita.com/shuntaro_tamura/items/06281261d893acf049ed
