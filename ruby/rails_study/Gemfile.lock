@@ -215,6 +215,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     sqlite3 (1.4.2)
+    statesman (9.0.0)
     stimulus-rails (1.0.2)
       railties (>= 6.0.0)
     strscan (3.0.1)
@@ -256,6 +257,7 @@ DEPENDENCIES
   sidekiq
   sprockets-rails
   sqlite3 (~> 1.4)
+  statesman
   stimulus-rails
   turbo-rails
   tzinfo-data
