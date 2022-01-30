@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   resources :microposts
   resources :users
@@ -5,4 +7,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  if Rails.env.development?
+    mount Sidekiq::Web, at: '/sidekiq'
+  end
 end
