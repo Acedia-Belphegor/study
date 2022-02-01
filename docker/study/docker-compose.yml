@@ -3,7 +3,7 @@ services:
   postgres:
     image: postgres
     ports:
-      - "15432:5432"
+      - "35432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
     environment:
@@ -16,9 +16,10 @@ services:
     image: rails
     command: bundle exec rails s -p 3000 -b '0.0.0.0' # コンテナ起動時にサーバーを起動する
     ports:
-      - "13000:3000" # local=>13000:container=>3000
+      - "33000:3000" # local=>13000:container=>3000
     environment:
       VIRTUAL_PORT: 3000
+      REDIS_URL: redis://redis:6379 # redis://{サービス名(コンテナ)}:6379
     volumes:
       - .:/app
     depends_on:
@@ -31,7 +32,7 @@ services:
     image: redis
     command: redis-server --appendonly yes
     ports:
-      - "16379:6379"
+      - "36379:6379"
     volumes:
       - redis-data:/var/lib/redis/data
 
@@ -46,6 +47,31 @@ services:
     environment:
       REDIS_URL: redis://redis:6379
 
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+    environment:
+      - discovery.type=single-node
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - 39200:9200
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+
+  kibana:
+    # elasticsearchとkibanaのimageのバージョン番号を一致させる
+    image: docker.elastic.co/kibana/kibana:7.10.1
+    ports:
+      - 35601:5601
+    depends_on:
+      - elasticsearch
+
 volumes:
   postgres-data:
   redis-data:
+  elasticsearch-data:
