@@ -1,0 +1,51 @@
+version: '3'
+services:
+  postgres:
+    image: postgres
+    ports:
+      - "15432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'admin-pass'
+    restart: always
+
+  rails: # サービス名 (実際に作成されるコンテナ名は {アプリケーション名}_{サービス名}_{連番} となる )
+    build: .
+    image: rails
+    command: bundle exec rails s -p 3000 -b '0.0.0.0' # コンテナ起動時にサーバーを起動する
+    ports:
+      - "13000:3000" # local=>13000:container=>3000
+    environment:
+      VIRTUAL_PORT: 3000
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+      - redis
+      - sidekiq
+    restart: always
+    
+  redis:
+    image: redis
+    command: redis-server --appendonly yes
+    ports:
+      - "16379:6379"
+    volumes:
+      - redis-data:/var/lib/redis/data
+
+  sidekiq:
+    build: .
+    command: bundle exec sidekiq
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      REDIS_URL: redis://redis:6379
+
+volumes:
+  postgres-data:
+  redis-data:
