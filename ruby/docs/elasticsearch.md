@@ -20,6 +20,10 @@ elasticsearch起動
 $ cd /usr/local/Cellar/elasticsearch/{version}
 $ bin/elasticsearch
 ```
+または
+```
+$ brew services start elasticsearch
+```
 
 疎通確認
 ```
