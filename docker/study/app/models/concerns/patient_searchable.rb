@@ -4,15 +4,16 @@ module PatientSearchable
   included do
     include Elasticsearch::Model
     
-    INDEX_FIELDS = %w(id name kana_name gender).freeze
+    INDEX_FIELDS = %w(id name kana_name gender memo).freeze
 
     index_name "es_patient_#{Rails.env}"
 
     settings do
       mappings dynamic: 'false' do # 動的にマッピングを生成しない
         indexes :id, type: "integer"
-        indexes :name, type: "text", analyzer: 'kuromoji'
-        indexes :kana_name, type: "text", analyzer: 'kuromoji'
+        indexes :name, type: "text", analyzer: 'kuromoji_ja_analyzer'
+        indexes :kana_name, type: "text", analyzer: 'kuromoji_ja_analyzer'
+        indexes :memo, type: "text", analyzer: "kuromoji_ja_analyzer"
         # indexes :microposts, type: "keyword", analyzer: 'kuromoji'
       end
     end

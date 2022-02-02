@@ -47,3 +47,12 @@ $ curl http://localhost:9200
 }
 ```
 
+インデックス取得
+```
+$ curl -XGET "http://localhost:39200/es_patient_development/_search?pretty=true"
+```
+
+インデックス削除
+```
+$ curl -XDELETE "http://localhost:39200/es_patient_development?pretty=true"
+```
