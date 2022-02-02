@@ -4,26 +4,32 @@ module PatientSearchable
   included do
     include Elasticsearch::Model
     
-    INDEX_FIELDS = %w(id name kana_name gender memo).freeze
+    # INDEX_FIELDS = %w(id name kana_name gender memo).freeze
 
     index_name "es_patient_#{Rails.env}"
 
-    settings do
-      mappings dynamic: 'false' do # 動的にマッピングを生成しない
-        indexes :id, type: "integer"
-        indexes :name, type: "text", analyzer: 'kuromoji_ja_analyzer'
-        indexes :kana_name, type: "text", analyzer: 'kuromoji_ja_analyzer'
-        indexes :memo, type: "text", analyzer: "kuromoji_ja_analyzer"
-        # indexes :microposts, type: "keyword", analyzer: 'kuromoji'
+    # settings do
+    # end
+
+    mappings do
+      indexes :id, type: "integer"
+      indexes :name, type: "text", analyzer: 'kuromoji_ja_analyzer'
+      indexes :kana_name, type: "text", analyzer: 'kuromoji_ja_analyzer'
+
+      indexes :nested_addresses, type: "nested" do
+        indexes :id, type: "keyword"
+        indexes :use, type: "keyword"
+        indexes :postal_code, type: "keyword"
+        indexes :prefecture, type: "text", analyzer: "kuromoji_ja_analyzer"
+        indexes :city, type: "text", analyzer: "kuromoji_ja_analyzer"
+        indexes :line, type: "text", analyzer: "kuromoji_ja_analyzer"
+        indexes :address, type: "text", analyzer: "kuromoji_ja_analyzer"
+      end
+
+      indexes :memo do
+        indexes :content, type: "text", analyzer: "kuromoji_ja_analyzer"
       end
     end
-
-    # def as_indexed_json(*)
-    #   attributes
-    #     .symbolize_keys
-    #     .slice(:id, :name)
-    #     # .merge(publisher: publisher_name, author: author_name, category: category_name)
-    # end    
 
     # 非同期でインデックスする
     attr_accessor :skip_callback # テスト用にcallbackをスキップできるようにする
@@ -32,8 +38,9 @@ module PatientSearchable
     after_destroy_commit -> { PatientIndexerJob.perform_later("delete", id) }, unless: :skip_callback    
   end
 
-  def as_indexed_json(option = {})
-    self.as_json.select { |k, _| INDEX_FIELDS.include?(k) }
+  def as_indexed_json(options = {})
+    # self.as_json.select { |k, _| INDEX_FIELDS.include?(k) }
+    PatientSerializer.new(self, options).as_json
   end
 
   class_methods do

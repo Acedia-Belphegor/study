@@ -10,7 +10,7 @@ class PatientSerializer < ApplicationSerializer
   has_one :memo, serializer: PatientMemoSerializer
 
   def nested_addresses
-    object.addresses
+    object.addresses # object = Patient model
   end
 
   def memo
