@@ -48,8 +48,14 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+# https://github.com/collectiveidea/interactor
+gem 'interactor-rails'
+
 # https://github.com/mperham/sidekiq
 gem 'sidekiq'
+
+# https://github.com/gocardless/statesman
+gem 'statesman'
 
 gem "elasticsearch", "~> 7.10.0" # See https://github.com/elastic/elasticsearch-ruby#compatibility
 gem "elasticsearch-rails", "~> 7.0" # See https://github.com/elastic/elasticsearch-rails/tree/master/elasticsearch-rails#compatibility

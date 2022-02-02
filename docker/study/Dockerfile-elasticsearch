@@ -1,2 +1,15 @@
 FROM docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+
 RUN /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-kuromoji
+
+ENV ES_JAVA_OPTS="-Xms512m -Xmx512m" \
+    bootstrap.memory_lock="true" \
+    cluster.name="docker-cluster" \
+    discovery.type="single-node" \
+    http.cors.allow-origin="*" \
+    http.cors.enabled="true" \
+    http.host="0.0.0.0" \
+    indices.breaker.fielddata.limit="50%" \
+    indices.fielddata.cache.size="40%" \
+    logger.deprecation.level="warn" \
+    transport.host="127.0.0.1"
