@@ -61,6 +61,8 @@ gem "elasticsearch", "~> 7.10.0" # See https://github.com/elastic/elasticsearch-
 gem "elasticsearch-rails", "~> 7.0" # See https://github.com/elastic/elasticsearch-rails/tree/master/elasticsearch-rails#compatibility
 gem "elasticsearch-model", "~> 7.0" # See https://github.com/elastic/elasticsearch-rails/tree/master/elasticsearch-model#compatibility
 
+gem "active_model_serializers"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

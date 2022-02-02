@@ -4,4 +4,8 @@ class Address < ApplicationRecord
 
   validates :use, inclusion: { in: %w[home work temp old] }
   validates :postal_code, length: { is: 7 }
+
+  def to_location
+    "#{prefecture}#{city}#{line}"
+  end
 end
