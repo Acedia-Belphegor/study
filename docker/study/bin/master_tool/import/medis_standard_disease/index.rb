@@ -10,12 +10,13 @@ module MasterTool
         end
 
         def perform
+          $stderr.puts "【索引テーブル】インポート開始"
           destroy
           
           File.open(@source_file, "r", encoding: "Windows-31J:UTF-8", invalid: :replace, undef: :replace, replace: '?') do |f|
             headers = CSV.open(@header_file, "r", encoding: "Windows-31J:UTF-8").readline
             csv = CSV.new(f, headers: headers)
-            csv.each.with_index(1) do |row, index|
+            csv.each do |row|
               Master::MedisIndex.new(
                 index_term: row["索引用語"],
                 term_code: row["対応用語コード"],
@@ -29,6 +30,8 @@ module MasterTool
               ).save!
             end
           end
+
+          $stderr.puts "【索引テーブル】インポート完了"
         end
 
         def destroy

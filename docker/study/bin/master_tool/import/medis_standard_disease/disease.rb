@@ -10,12 +10,13 @@ module MasterTool
         end
 
         def perform
+          $stderr.puts "【病名基本テーブル】インポート開始"
           destroy
           
           File.open(@source_file, "r", encoding: "Windows-31J:UTF-8", invalid: :replace, undef: :replace, replace: '?') do |f|
             headers = CSV.open(@header_file, "r", encoding: "Windows-31J:UTF-8").readline
             csv = CSV.new(f, headers: headers)
-            csv.each.with_index(1) do |row, index|
+            csv.each do |row|
               Master::MedisDisease.new(
                 change_type: row["変更区分"],
                 disease_managed_number: row["病名管理番号"],
@@ -40,6 +41,8 @@ module MasterTool
               ).save!
             end
           end
+
+          $stderr.puts "【病名基本テーブル】インポート完了"
         end
 
         def destroy
