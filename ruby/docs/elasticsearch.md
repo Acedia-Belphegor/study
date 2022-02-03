@@ -47,7 +47,7 @@ $ curl http://localhost:9200
 }
 ```
 
-インデックス取得
+インデックス取得(全件)
 ```
 $ curl -XGET "http://localhost:39200/es_patient_development/_search?pretty=true"
 ```
@@ -56,3 +56,13 @@ $ curl -XGET "http://localhost:39200/es_patient_development/_search?pretty=true"
 ```
 $ curl -XDELETE "http://localhost:39200/es_patient_development?pretty=true"
 ```
+
+kibana (キバナ) => ES向けBIツール
+https://dev.classmethod.jp/articles/kibana-for-beginners/
+
+SQLとElasticsearchとのクエリの比較
+https://qiita.com/NAO_MK2/items/630f2c4caa0e8a42407c
+
+通常の文字列 : Keyword
+全文検索対象 : Text
+

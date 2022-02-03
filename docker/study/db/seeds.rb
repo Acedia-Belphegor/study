@@ -17,7 +17,14 @@ Patient.create!(
       postal_code: "1730004",
       prefecture: "東京都",
       city: "板橋区",
-      line: "板橋１丁目６０−１"
+      line: "板橋１丁目６０−１　ＧＲＡＮＤ　ＳＯＬＥＩＬ　○○○号室"
+    ),
+    Address.new(
+      use: "old",
+      postal_code: "1140023",
+      prefecture: "東京都",
+      city: "北区",
+      line: "滝野川７丁目２１−１２　リヴェール丹野　○○○号室"
     )
   ],
   insurances: [
@@ -33,3 +40,33 @@ Patient.create!(
   ],
   memo: PatientMemo.new(content: "ほげほげ")
 )
+
+Patient.create!(
+  name: "細田　恵",
+  kana_name: "ホソダ　メグミ",
+  gender: "male",
+  birth_date: Date.parse("1983-11-30"),
+  addresses: [
+    Address.new(
+      use: "home",
+      postal_code: "1730004",
+      prefecture: "東京都",
+      city: "板橋区",
+      line: "板橋１丁目６０−１"
+    )
+  ],
+  insurances: [
+    Insurance.new(
+      insurance_number: "139999",
+      insured_symbol: "12345678",
+      insured_number: "10",
+      insured_branch_number: "00",
+      relationship: "person",
+      start_at: "19990101",
+      end_at: "99999999"
+    )
+  ],
+  memo: PatientMemo.new(content: "ぴよぴよ")
+)
+
+# Patient.all.each{ |patient| PatientIndexerJob.perform_later("update", patient.id) }

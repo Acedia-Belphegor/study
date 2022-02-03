@@ -26,6 +26,20 @@ module PatientSearchable
         indexes :address, type: "text", analyzer: "kuromoji_ja_analyzer"
       end
 
+      indexes :nested_insurances, type: "nested" do
+        indexes :id, type: "keyword"
+        indexes :insurance_number, type: "keyword"
+        indexes :insured_symbol, type: "keyword"
+        indexes :insured_number, type: "keyword"
+        indexes :insured_branch_number, type: "keyword"
+        indexes :insured_name, type: "text", analyzer: "kuromoji_ja_analyzer"
+        indexes :relationship, type: "keyword"
+        indexes :start_at, type: "keyword"
+        indexes :end_at, type: "keyword"
+        indexes :payment_rate_for_outpatient, type: "integer"
+        indexes :payment_rate_for_inpatient, type: "integer"
+      end
+
       indexes :memo do
         indexes :content, type: "text", analyzer: "kuromoji_ja_analyzer"
       end

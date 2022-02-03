@@ -29,6 +29,15 @@ class InitSchema < ActiveRecord::Migration[7.0]
       t.index ["patient_id"], name: "index_insurances_on_patient_id"
     end
 
+    create_table "diseases", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+      t.uuid "patient_id"
+      t.string "disease_code"
+      t.string "disease_name"
+      t.datetime "created_at", null: false
+      t.datetime "updated_at", null: false
+      t.index ["patient_id"], name: "index_diseases_on_patient_id"
+    end
+
     create_table "patients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
       t.text "name"
       t.text "kana_name"
