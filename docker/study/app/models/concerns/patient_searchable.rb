@@ -6,7 +6,7 @@ module PatientSearchable
     
     # INDEX_FIELDS = %w(id name kana_name gender memo).freeze
 
-    index_name "es_patient_#{Rails.env}"
+    index_name "patient_#{Rails.env}"
 
     # settings do
     # end

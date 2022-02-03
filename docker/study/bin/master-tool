@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'thor'
+
+require File.expand_path("../../config/environment", __FILE__)
+
+module MasterTool
+  class Cli < Thor
+    desc "import", "他社製のレセコンから出力したデータを取り込み可能形式に変換する"
+    option :"from", type: :string, require: true
+    option :"master_version", type: :string
+    def import
+      require Rails.root.join("bin", "master_tool", "import", options[:from], "initializer.rb")
+
+      "MasterTool::Import::#{options[:from].classify}::Importer".constantize.new(options).perform
+    end
+  end
+end
+
+MasterTool::Cli.start(ARGV)
