@@ -1,0 +1,18 @@
+# https://www.elastic.co/guide/en/elasticsearch/plugins/current/analysis-kuromoji-analyzer.html
+# https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-charfilters.html
+# https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-tokenfilters.html
+# input => Character Filters => Tokenizer => Token Filters => output
+# Latin <=> Hiragana
+# Latin <=> Katakana
+# Hiragana <=> Katakana
+
+index:
+  analysis:
+    analyzer:
+      kuromoji_ja_analyzer:
+        type: kuromoji
+        char_filter:
+          - icu_normalizer
+          - kuromoji_iteration_mark
+        filter:
+          - kuromoji_number

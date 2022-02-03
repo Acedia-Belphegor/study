@@ -6,8 +6,7 @@ module Master::MedisDiseaseSearchable
     
     index_name "medis_disease_#{Rails.env}"
 
-    # settings do
-    # end
+    settings Rails.root.join("config", "elasticsearch", "medis_diseases.yml")
 
     mappings do
       indexes :id, type: "keyword"
