@@ -19,3 +19,7 @@ module MasterTool
 end
 
 MasterTool::Cli.start(ARGV)
+
+__END__
+# bundle exec bin/master-tool import --from medis_standard_disease --master_version 508
+# bundle exec bin/master-tool import --from icd10 --master_version 2013

@@ -22,9 +22,14 @@ class Master::MedisDiseaseSerializer < ApplicationSerializer
   attributes :uncoverd_insurance_type
   attributes :reserve3
   attributes :reserve4
+  has_one :icd10_name
   has_many :index_terms
   
   def index_terms
     Master::MedisIndex.where(disease_modifier_type: "1", term_code: object.disease_exchange_code).map(&:index_term)
+  end
+
+  def icd10_name
+    Master::Icd10BasicClass.find_by(class_unit: ["最小", "最小・日本独自"], code: object.icd10_2013.tap{ |t| break t.insert(3, ".") if t.size > 3 })&.name
   end
 end

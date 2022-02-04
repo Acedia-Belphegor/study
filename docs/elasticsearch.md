@@ -66,3 +66,38 @@ https://qiita.com/NAO_MK2/items/630f2c4caa0e8a42407c
 通常の文字列 : Keyword
 全文検索対象 : Text
 
+http://localhost:35601/
+
+クエリ
+```
+GET medis_disease_development/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "index_terms": "腎炎"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+```
+GET medis_disease_development/_search
+{
+  "size": 100,
+  "query": {
+    "multi_match": {
+      "fields": ["index_terms", "disease_name", "disease_phonetic_name", "icd10_name"],
+      "type": "cross_fields",
+      "query": "ウイルス性肝炎 B型",
+      "operator": "or"
+    }
+  }
+}
+```
+
+curl -X POST 'localhost:39200/medis_disease_development/_analyze?pretty' -H "Content-type: application/json" -d '{"analyzer": "kuromoji", "text": "ウイルス性肝炎 B型"}'

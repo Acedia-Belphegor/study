@@ -30,6 +30,7 @@ module Master::MedisDiseaseSearchable
       indexes :uncoverd_insurance_type, type: "keyword"
       indexes :reserve3, type: "keyword"
       indexes :reserve4, type: "keyword"
+      indexes :icd10_name, type: "keyword"
     
       indexes :index_terms, type: "nested" do
         indexes :index_term, type: "text", analyzer: 'kuromoji_ja_analyzer'
@@ -59,5 +60,18 @@ module Master::MedisDiseaseSearchable
                               mappings: self.mappings.to_hash
                             })
     end
+
+    def es_search(query)
+      __elasticsearch__.search({
+        query: {
+          multi_match: {
+            fields: %w(index_terms disease_name disease_phonetic_name disease_short_name icd10_name),
+            type: 'cross_fields',
+            query: query,
+            operator: 'or'
+          }
+        }
+      })
+    end   
   end
 end

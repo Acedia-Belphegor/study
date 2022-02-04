@@ -14,3 +14,6 @@ https://qiita.com/Yusuke_Hoirta/items/3a50d066af3bafbb8641
 
 docker-composeでRails+PostgreSQL+Redis+Sidekiq環境を作る
 https://snyt45.com/posts/20210610/rails-sidekiq/
+
+Docker for Macを使っていたら50GB位ディスク容量を圧迫していたのでいろんなものを削除する
+https://qiita.com/shinespark/items/526b70b5f0b1ac643ba0

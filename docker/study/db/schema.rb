@@ -52,6 +52,26 @@ ActiveRecord::Schema.define(version: 2022_02_02_055017) do
     t.index ["patient_id"], name: "index_insurances_on_patient_id"
   end
 
+  create_table "master_icd10_basic_classes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "kind", comment: "種別"
+    t.string "class_unit", comment: "分類単位"
+    t.string "chapter_number", comment: "章番号"
+    t.string "intermediate_class", comment: "中間分類"
+    t.string "three_digits_class", comment: "３桁分類"
+    t.string "code", comment: "コード"
+    t.string "kensei", comment: "剣星"
+    t.string "display_code", comment: "表示用コード"
+    t.string "sub_class", comment: "注、細分類等"
+    t.string "name", comment: "コード名"
+    t.string "large_class", comment: "大分類"
+    t.string "middle_class", comment: "中分類"
+    t.string "small_class", comment: "小分類"
+    t.string "case_of_death_class", comment: "死因分類"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["code"], name: "index_master_icd10_basic_classes_on_code"
+  end
+
   create_table "master_medis_diseases", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "change_type", comment: "変更区分"
     t.string "disease_managed_number", comment: "病名管理番号"
