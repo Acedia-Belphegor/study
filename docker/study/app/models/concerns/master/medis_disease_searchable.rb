@@ -30,7 +30,7 @@ module Master::MedisDiseaseSearchable
       indexes :uncoverd_insurance_type, type: "keyword"
       indexes :reserve3, type: "keyword"
       indexes :reserve4, type: "keyword"
-      indexes :icd10_name, type: "keyword"
+      indexes :icd10_name, type: "text", analyzer: 'kuromoji_ja_analyzer'
     
       indexes :index_terms, type: "nested" do
         indexes :index_term, type: "text", analyzer: 'kuromoji_ja_analyzer'
