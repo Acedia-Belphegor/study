@@ -25,7 +25,7 @@ $ git branch -d fix_hogehoge
 $ git branch -r 
 ```
 
-リモートブランチをローカルにコピーする
+リモートブランチをローカルにコピーする( `git clone` した時点の内容になるので `git pull` する)
 ```
 $ git checkout -b <ローカルブランチ名> origin/<リモートブランチ名>
 ```
